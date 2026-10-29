@@ -60,12 +60,13 @@ jobs:
         id: version
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
-          if ("${{ github.event.inputs.version }}" -ne "") {
-            $version = "${{ github.event.inputs.version }}"
+          $inputVersion = "${{ github.event.inputs.version }}"
+          if ($inputVersion -ne "") {
+            $version = $inputVersion
           } elseif ("${{ github.ref_type }}" -eq "tag") {
             $version = "${{ github.ref_name }}".TrimStart('v')
           } else {
-            $version = "0.1.0-dev.$(date -Format 'yyyyMMddHHmm')"
+            $version = "0.1.0-dev.$(Get-Date -Format 'yyyyMMddHHmm')"
           }
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "当前版本: $version"
