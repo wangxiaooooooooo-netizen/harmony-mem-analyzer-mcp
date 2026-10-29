@@ -10,6 +10,7 @@ import subprocess
 import sys
 import shutil
 import sysconfig
+import hashlib
 from pathlib import Path
 from typing import List, Optional
 
@@ -63,14 +64,20 @@ class CrossPlatformBuilder:
     
     def get_pyinstaller_args(self, target_platform: str = "auto") -> List[str]:
         """生成 PyInstaller 参数"""
+        # Windows 使用 onedir 模式避免 python312.dll 加载失败
+        is_windows = target_platform == "windows" or (target_platform == "auto" and self.system == "windows")
+        
         args = [
             "--name", "mem-analyzer-mcp",
-            "--onefile",
+            "--onedir" if is_windows else "--onefile",
             "--clean",
             "--noconfirm",
             "--optimize", "2",
-            "--strip",
         ]
+        
+        # 非 Windows 才用 strip
+        if not is_windows:
+            args.append("--strip")
         
         # 平台特定参数
         if target_platform == "macos" or (target_platform == "auto" and self.system == "darwin"):
@@ -137,6 +144,9 @@ class CrossPlatformBuilder:
         print(f"🔨 PyInstaller 构建 ({target_platform})...")
         self.ensure_dependencies()
         
+        # 判断是否为 Windows onedir 模式
+        is_windows = target_platform == "windows" or (target_platform == "auto" and self.system == "windows")
+        
         # 使用 uv run pyinstaller 确保使用正确的 Python 环境
         args = ["uv", "run", "pyinstaller"] + self.get_pyinstaller_args(target_platform)
         
@@ -148,17 +158,28 @@ class CrossPlatformBuilder:
         result = subprocess.run(args, cwd=self.project_root, env=env, check=True)
         
         # 确定输出路径
-        if self.system == "windows":
-            exe_name = "mem-analyzer-mcp.exe"
+        if is_windows:
+            # onedir 模式：返回目录路径
+            output = self.dist_dir / "mem-analyzer-mcp"
+            if not output.exists():
+                # 尝试查找
+                for f in self.dist_dir.glob("mem-analyzer-mcp*"):
+                    if f.is_dir():
+                        output = f
+                        break
         else:
-            exe_name = "mem-analyzer-mcp"
-        
-        output = self.dist_dir / exe_name
-        if not output.exists():
-            # 尝试查找
-            for f in self.dist_dir.rglob(exe_name):
-                output = f
-                break
+            # onefile 模式：返回可执行文件路径
+            if self.system == "windows":
+                exe_name = "mem-analyzer-mcp.exe"
+            else:
+                exe_name = "mem-analyzer-mcp"
+            
+            output = self.dist_dir / exe_name
+            if not output.exists():
+                # 尝试查找
+                for f in self.dist_dir.rglob(exe_name):
+                    output = f
+                    break
         
         print(f"✅ PyInstaller 构建完成: {output}")
         return output
@@ -167,10 +188,26 @@ class CrossPlatformBuilder:
         """验证二进制文件基本功能"""
         print(f"🔍 验证二进制: {binary_path}")
         
+        # 判断是目录还是文件
+        is_dir = binary_path.is_dir()
+        if is_dir:
+            # onedir 模式：可执行文件在目录内
+            if self.system == "windows":
+                exe_name = "mem-analyzer-mcp.exe"
+            else:
+                exe_name = "mem-analyzer-mcp"
+            actual_binary = binary_path / exe_name
+        else:
+            actual_binary = binary_path
+        
+        if not actual_binary.exists():
+            print(f"❌ 可执行文件不存在: {actual_binary}")
+            return False
+        
         try:
             # 测试启动（超时 15 秒）
             result = subprocess.run(
-                [str(binary_path), "--help"],
+                [str(actual_binary), "--help"],
                 capture_output=True,
                 text=True,
                 timeout=20
@@ -197,18 +234,34 @@ class CrossPlatformBuilder:
         platform_info = self.detect_platform()
         version = "0.1.0"
         
+        # 判断是否为 onedir 模式（Windows）
+        is_dir = binary_path.is_dir()
+        
         # 发布包命名: mem-analyzer-mcp-v0.1.0-macos-arm64-pyinstaller.tar.gz
         pkg_name = f"mem-analyzer-mcp-v{version}-{platform_info['system']}-{platform_info['arch']}-{tool}"
         pkg_dir = self.dist_dir / pkg_name
         pkg_dir.mkdir(exist_ok=True)
         
-        # 复制二进制
-        exe_name = binary_path.name
-        shutil.copy2(binary_path, pkg_dir / exe_name)
+        if is_dir:
+            # onedir 模式：复制整个目录
+            dest_dir = pkg_dir / binary_path.name
+            shutil.copytree(binary_path, dest_dir)
+            # 计算主可执行文件的校验和
+            if self.system == "windows":
+                exe_name = "mem-analyzer-mcp.exe"
+            else:
+                exe_name = "mem-analyzer-mcp"
+            main_exe = binary_path / exe_name
+            sha256 = hashlib.sha256(main_exe.read_bytes()).hexdigest() if main_exe.exists() else ""
+            archive_name = f"{binary_path.name}.zip" if self.system == "windows" else f"{binary_path.name}.tar.gz"
+        else:
+            # onefile 模式：复制单个文件
+            exe_name = binary_path.name
+            shutil.copy2(binary_path, pkg_dir / exe_name)
+            sha256 = hashlib.sha256(binary_path.read_bytes()).hexdigest()
+            archive_name = f"{exe_name}.zip" if self.system == "windows" else f"{exe_name}.tar.gz"
         
         # 生成校验和
-        import hashlib
-        sha256 = hashlib.sha256(binary_path.read_bytes()).hexdigest()
         (pkg_dir / "SHA256SUMS").write_text(f"{sha256}  {exe_name}\n")
         
         # 生成元数据
