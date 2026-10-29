@@ -9,6 +9,7 @@ import platform
 import subprocess
 import sys
 import shutil
+import sysconfig
 from pathlib import Path
 from typing import List, Optional
 
