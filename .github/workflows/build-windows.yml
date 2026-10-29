@@ -21,7 +21,7 @@ jobs:
     
     env:
       PYTHON_VERSION: '3.12'
-      PROJECT_DIR: 'mcp_server'
+      PROJECT_DIR: '.'
       
     steps:
       - name: Checkout repository
@@ -46,7 +46,7 @@ jobs:
           path: |
             ~/.cache/uv
             ${{ env.PROJECT_DIR }}/.venv
-          key: ${{ runner.os }}-uv-${{ hashFiles('mcp_server/uv.lock') }}
+          key: ${{ runner.os }}-uv-${{ hashFiles('./uv.lock') }}
           restore-keys: |
             ${{ runner.os }}-uv-
       
