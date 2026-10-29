@@ -22,6 +22,7 @@ jobs:
     env:
       PYTHON_VERSION: '3.12'
       PROJECT_DIR: '.'
+      PYTHONIOENCODING: 'utf-8'
       
     steps:
       - name: Checkout repository
