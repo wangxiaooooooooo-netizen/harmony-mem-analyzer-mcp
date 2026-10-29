@@ -80,14 +80,15 @@ jobs:
       - name: Verify binary
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
-          $binary = "dist/mem-analyzer-mcp.exe"
+          $binaryDir = "dist/mem-analyzer-mcp"
+          $binary = "$binaryDir/mem-analyzer-mcp.exe"
           if (Test-Path $binary) {
             $size = (Get-Item $binary).Length / 1MB
             echo "二进制大小: $([math]::Round($size, 1)) MB"
             & $binary --help 2>&1 | Select-Object -First 5
             echo "✅ 启动测试通过"
           } else {
-            echo "❌ 未找到二进制文件"
+            echo "❌ 未找到二进制文件: $binary"
             exit 1
           }
       
@@ -98,19 +99,27 @@ jobs:
           $distDir = "dist"
           $artifacts = @()
           
-          $zipFiles = Get-ChildItem $distDir -Filter "*.zip" | Sort-Object LastWriteTime -Descending
-          if ($zipFiles.Count -gt 0) {
-            $latestZip = $zipFiles[0]
-            $newName = "mem-analyzer-mcp-v${version}-windows-x64-pyinstaller.zip"
-            Rename-Item $latestZip.FullName -NewName $newName
-            $artifacts += $newName
-            echo "发布包: $newName"
-          }
-          
-          $exe = "dist/mem-analyzer-mcp.exe"
-          if (Test-Path $exe) {
-            Copy-Item $exe -Destination "mem-analyzer-mcp-v${version}-windows-x64.exe"
-            $artifacts += "mem-analyzer-mcp-v${version}-windows-x64.exe"
+          # onedir 模式：复制整个目录到发布包
+          $binaryDir = "$distDir/mem-analyzer-mcp"
+          if (Test-Path $binaryDir) {
+            $pkgName = "mem-analyzer-mcp-v${version}-windows-x64-pyinstaller"
+            $pkgDir = "$distDir/$pkgName"
+            New-Item -ItemType Directory -Path $pkgDir -Force | Out-Null
+            
+            # 复制整个 onedir 目录
+            Copy-Item -Path $binaryDir -Destination "$pkgDir/mem-analyzer-mcp" -Recurse -Force
+            
+            # 复制主 exe 到根目录供直接下载
+            $exe = "$binaryDir/mem-analyzer-mcp.exe"
+            if (Test-Path $exe) {
+              Copy-Item $exe -Destination "mem-analyzer-mcp-v${version}-windows-x64.exe" -Force
+              $artifacts += "mem-analyzer-mcp-v${version}-windows-x64.exe"
+            }
+            
+            # 压缩为 zip
+            Compress-Archive -Path "$pkgDir/*" -DestinationPath "$distDir/$pkgName.zip" -Force
+            $artifacts += "$pkgName.zip"
+            echo "发布包: $pkgName.zip"
           }
           
           echo "artifacts=$($artifacts -join ';')" >> $env:GITHUB_OUTPUT
@@ -121,7 +130,6 @@ jobs:
           name: mem-analyzer-mcp-windows-${{ steps.version.outputs.version }}
           path: |
             ${{ env.PROJECT_DIR }}/dist/*.zip
-            ${{ env.PROJECT_DIR }}/dist/mem-analyzer-mcp.exe
             ${{ env.PROJECT_DIR }}/mem-analyzer-mcp-*.exe
           retention-days: 30
       
