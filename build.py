@@ -81,6 +81,8 @@ class CrossPlatformBuilder:
             version_file = self.project_root / "version_info.txt"
             if version_file.exists():
                 args.extend(["--version-file", str(version_file)])
+            # Windows: 禁用 UPX 压缩，防止 python312.dll 加载失败
+            args.extend(["--noupx"])
         
         # 通用隐式导入 - 仅 mem-analyzer-mcp 服务需要的
         hidden_imports = [
