@@ -81,8 +81,23 @@ class CrossPlatformBuilder:
             version_file = self.project_root / "version_info.txt"
             if version_file.exists():
                 args.extend(["--version-file", str(version_file)])
-            # Windows: 禁用 UPX 压缩，防止 python312.dll 加载失败
-            args.extend(["--noupx"])
+            # Windows 专用修复：解决 python312.dll 加载失败
+            args.extend([
+                "--noupx",                    # 禁用 UPX 压缩
+                "--disable-windowed-traceback",  # 禁用窗口模式回溯
+            ])
+            # 显式添加 Python DLL - 尝试多个常见路径
+            python_dll_name = f"python{sys.version_info.major}{sys.version_info.minor}.dll"
+            python_dll_paths = [
+                Path(sys.base_prefix) / python_dll_name,
+                Path(sys.base_prefix) / "DLLs" / python_dll_name,
+                Path(sysconfig.get_config_var("LIBDIR") or "") / python_dll_name,
+                Path(sysconfig.get_config_var("INSTSONAME") or ""),
+            ]
+            for dll_path in python_dll_paths:
+                if dll_path and dll_path.exists():
+                    args.extend(["--add-binary", f"{dll_path};."])
+                    break
         
         # 通用隐式导入 - 仅 mem-analyzer-mcp 服务需要的
         hidden_imports = [
