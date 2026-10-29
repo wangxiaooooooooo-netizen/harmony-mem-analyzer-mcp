@@ -1,0 +1,183 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号 (如 0.1.1)'
+        required: false
+        type: string
+
+jobs:
+  build-windows:
+    name: Build Windows x64
+    runs-on: windows-latest
+    timeout-minutes: 30
+    
+    env:
+      PYTHON_VERSION: '3.12'
+      PROJECT_DIR: 'mcp_server'
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install uv
+        run: |
+          pip install uv
+          uv --version
+      
+      - name: Cache uv packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/uv
+            ${{ env.PROJECT_DIR }}/.venv
+          key: ${{ runner.os }}-uv-${{ hashFiles('mcp_server/uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+      
+      - name: Sync dependencies
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          uv sync --extra build
+          uv pip list
+      
+      - name: Get version
+        id: version
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          if ("${{ github.event.inputs.version }}" -ne "") {
+            $version = "${{ github.event.inputs.version }}"
+          } elseif ("${{ github.ref_type }}" -eq "tag") {
+            $version = "${{ github.ref_name }}".TrimStart('v')
+          } else {
+            $version = "0.1.0-dev.$(date -Format 'yyyyMMddHHmm')"
+          }
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+          echo "当前版本: $version"
+      
+      - name: Build Windows x64 (PyInstaller)
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          python build.py --tool pyinstaller --platform windows --arch x64 --verify --package
+      
+      - name: Verify binary
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          $binary = "dist/mem-analyzer-mcp.exe"
+          if (Test-Path $binary) {
+            $size = (Get-Item $binary).Length / 1MB
+            echo "二进制大小: $([math]::Round($size, 1)) MB"
+            & $binary --help 2>&1 | Select-Object -First 5
+            echo "✅ 启动测试通过"
+          } else {
+            echo "❌ 未找到二进制文件"
+            exit 1
+          }
+      
+      - name: Prepare release artifacts
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $distDir = "dist"
+          $artifacts = @()
+          
+          $zipFiles = Get-ChildItem $distDir -Filter "*.zip" | Sort-Object LastWriteTime -Descending
+          if ($zipFiles.Count -gt 0) {
+            $latestZip = $zipFiles[0]
+            $newName = "mem-analyzer-mcp-v${version}-windows-x64-pyinstaller.zip"
+            Rename-Item $latestZip.FullName -NewName $newName
+            $artifacts += $newName
+            echo "发布包: $newName"
+          }
+          
+          $exe = "dist/mem-analyzer-mcp.exe"
+          if (Test-Path $exe) {
+            Copy-Item $exe -Destination "mem-analyzer-mcp-v${version}-windows-x64.exe"
+            $artifacts += "mem-analyzer-mcp-v${version}-windows-x64.exe"
+          }
+          
+          echo "artifacts=$($artifacts -join ';')" >> $env:GITHUB_OUTPUT
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mem-analyzer-mcp-windows-${{ steps.version.outputs.version }}
+          path: |
+            ${{ env.PROJECT_DIR }}/dist/*.zip
+            ${{ env.PROJECT_DIR }}/dist/mem-analyzer-mcp.exe
+            ${{ env.PROJECT_DIR }}/mem-analyzer-mcp-*.exe
+          retention-days: 30
+      
+      - name: Create Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: mem-analyzer-mcp ${{ steps.version.outputs.version }} (Windows)
+          body: |
+            ## 📦 mem-analyzer-mcp Windows x64 发布包
+            
+            **版本**: ${{ steps.version.outputs.version }}
+            **平台**: Windows x64
+            **构建工具**: PyInstaller 6.22.3
+            **Python**: 3.12
+            
+            ### 📥 下载
+            - `mem-analyzer-mcp-v${{ steps.version.outputs.version }}-windows-x64-pyinstaller.zip` - 完整发布包（含 SHA256、元数据）
+            - `mem-analyzer-mcp-v${{ steps.version.outputs.version }}-windows-x64.exe` - 单独可执行文件
+            
+            ### ✅ 验证
+            ```powershell
+            # 验证 SHA256
+            Get-FileHash mem-analyzer-mcp.exe -Algorithm SHA256
+            ```
+            
+            ### 🚀 使用
+            ```powershell
+            # 解压发布包
+            Expand-Archive mem-analyzer-mcp-v${{ steps.version.outputs.version }}-windows-x64-pyinstaller.zip
+            cd mem-analyzer-mcp-v${{ steps.version.outputs.version }}-windows-x64-pyinstaller
+            
+            # 运行 (需要配置环境变量)
+            $env:MEM_ANALYZER_PATH = "C:\path\to\mem-analyzer-mcp.exe"
+            $env:RAWHEAP_TRANSLATOR_PATH = "C:\path\to\rawheap_translator.exe"
+            .\mem-analyzer-mcp.exe
+            ```
+            
+            ### 📋 MCP 客户端配置
+            ```json
+            {
+              "mcpServers": {
+                "mem-analyzer": {
+                  "command": "C:\\path\\to\\mem-analyzer-mcp.exe",
+                  "args": [],
+                  "env": {
+                    "MEM_ANALYZER_PATH": "C:\\path\\to\\mem-analyzer-mcp.exe",
+                    "RAWHEAP_TRANSLATOR_PATH": "C:\\path\\to\\rawheap_translator.exe"
+                  }
+                }
+              }
+            }
+            ```
+          files: |
+            ${{ env.PROJECT_DIR }}/dist/*.zip
+            ${{ env.PROJECT_DIR }}/mem-analyzer-mcp-*.exe
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

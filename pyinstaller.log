@@ -1,0 +1,190 @@
+67 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.9
+68 INFO: Python: 3.12.13
+81 INFO: Platform: macOS-14.8.9-x86_64-i386-64bit
+82 INFO: Python environment: /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv
+82 INFO: wrote /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/mcp-server.spec
+87 INFO: Removing temporary files and cleaning cache in /Users/wangdefu/Library/Application Support/pyinstaller
+4332 INFO: Module search paths (PYTHONPATH):
+['/Users/wangdefu/Library/Application '
+ 'Support/uv/python/cpython-3.12.13-macos-x86_64-none/lib/python312.zip',
+ '/Users/wangdefu/Library/Application '
+ 'Support/uv/python/cpython-3.12.13-macos-x86_64-none/lib/python3.12',
+ '/Users/wangdefu/Library/Application '
+ 'Support/uv/python/cpython-3.12-macos-x86_64-none/lib/python3.12/lib-dynload',
+ '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages',
+ '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server']
+4575 INFO: Appending 'datas' from .spec
+4588 INFO: checking Analysis
+4588 INFO: Building Analysis because Analysis-00.toc is non existent
+4588 INFO: Looking for Python shared library...
+4615 INFO: Using Python shared library: /Users/wangdefu/Library/Application Support/uv/python/cpython-3.12.13-macos-x86_64-none/lib/libpython3.12.dylib
+4615 INFO: Running Analysis Analysis-00.toc
+4615 INFO: Target bytecode optimization level: 2
+4615 INFO: Initializing module dependency graph...
+4616 INFO: Initializing module graph hook caches...
+4628 INFO: Analyzing modules for base_library.zip ...
+5276 INFO: Processing standard module hook 'hook-encodings.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+6295 INFO: Processing standard module hook 'hook-math.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+7732 INFO: Processing standard module hook 'hook-pickle.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+8781 INFO: Processing standard module hook 'hook-heapq.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+9314 INFO: Caching module dependency graph...
+9372 INFO: Analyzing /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/main.py
+11986 INFO: Processing standard module hook 'hook-xml.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+12010 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+12284 INFO: Processing standard module hook 'hook-fastmcp.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+12296 INFO: Processing pre-safe-import-module hook 'hook-platformdirs.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+12297 INFO: SetuptoolsInfo: initializing cached setuptools info...
+12772 INFO: Processing standard module hook 'hook-platformdirs.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+12846 INFO: Processing standard module hook 'hook-_ctypes.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+12908 INFO: Processing standard module hook 'hook-pydantic.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+13260 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+13791 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15091 INFO: Processing standard module hook 'hook-platform.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15664 INFO: Processing standard module hook 'hook-zoneinfo.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+15695 INFO: Processing standard module hook 'hook-sysconfig.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15711 INFO: Processing standard module hook 'hook-_osx_support.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+15874 INFO: Processing standard module hook 'hook-rich.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+16547 INFO: Processing standard module hook 'hook-pygments.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+18544 INFO: Processing standard module hook 'hook-webbrowser.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+19979 INFO: Processing standard module hook 'hook-anyio.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+21790 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+21791 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+22210 INFO: Processing standard module hook 'hook-difflib.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+22647 INFO: Processing standard module hook 'hook-dns.rdata.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+26597 INFO: Processing standard module hook 'hook-opentelemetry.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+27109 INFO: Processing standard module hook 'hook-uvicorn.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+27817 INFO: Processing standard module hook 'hook-websockets.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+28963 INFO: Processing standard module hook 'hook-cryptography.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+29672 INFO: hook-cryptography: cryptography uses dynamically-linked OpenSSL: '/usr/local/opt/openssl@3/lib/libssl.3.dylib'
+29968 INFO: Processing standard module hook 'hook-jsonschema.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+30123 INFO: Processing standard module hook 'hook-jsonschema_specifications.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+30146 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+33068 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+35078 INFO: Processing standard module hook 'hook-sqlite3.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+35854 INFO: Analyzing hidden import 'rpds_py'
+35854 ERROR: Hidden import 'rpds_py' not found
+35854 INFO: Analyzing hidden import 'typer'
+36223 INFO: Analyzing hidden import 'fastmcp.apps.approval'
+36230 INFO: Analyzing hidden import 'fastmcp.apps.choice'
+36235 INFO: Analyzing hidden import 'fastmcp.apps.file_upload'
+36255 INFO: Analyzing hidden import 'fastmcp.apps.form'
+36262 INFO: Analyzing hidden import 'fastmcp.apps.generative'
+36271 INFO: Analyzing hidden import 'fastmcp.cli'
+37179 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks'
+39228 INFO: Analyzing hidden import 'fastmcp.cli.__main__'
+39230 INFO: Analyzing hidden import 'fastmcp.client.caching'
+39238 INFO: Analyzing hidden import 'fastmcp.client.sampling.handlers'
+39238 INFO: Analyzing hidden import 'fastmcp.client.sampling.handlers.anthropic'
+39253 INFO: Analyzing hidden import 'fastmcp.client.sampling.handlers.google_genai'
+39266 INFO: Analyzing hidden import 'fastmcp.client.sampling.handlers.openai'
+39282 INFO: Analyzing hidden import 'fastmcp.dependencies'
+39284 INFO: Analyzing hidden import 'fastmcp.experimental'
+39285 INFO: Analyzing hidden import 'fastmcp.experimental.transforms'
+39285 INFO: Analyzing hidden import 'fastmcp.experimental.transforms.code_mode'
+39344 INFO: Analyzing hidden import 'fastmcp.experimental.transforms.jev_search'
+39363 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.auth0'
+39372 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.aws'
+39378 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.azure'
+39398 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.clerk'
+39408 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.descope'
+39421 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.discord'
+39429 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.github'
+39438 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.google'
+39448 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.huggingface'
+39459 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.in_memory'
+39471 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.keycloak'
+39473 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.oci'
+39477 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.propelauth'
+39483 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.scalekit'
+39489 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.supabase'
+39494 INFO: Analyzing hidden import 'fastmcp.server.auth.providers.workos'
+39504 INFO: Analyzing hidden import 'fastmcp.server.event_store'
+39512 INFO: Analyzing hidden import 'fastmcp.server.middleware.caching'
+39553 INFO: Analyzing hidden import 'fastmcp.server.middleware.error_handling'
+39561 INFO: Analyzing hidden import 'fastmcp.server.middleware.logging'
+39573 INFO: Analyzing hidden import 'fastmcp.server.middleware.rate_limiting'
+39585 INFO: Analyzing hidden import 'fastmcp.server.middleware.response_limiting'
+39592 INFO: Analyzing hidden import 'fastmcp.server.middleware.timing'
+39598 INFO: Analyzing hidden import 'fastmcp.skills._source'
+39601 INFO: Analyzing hidden import 'fastmcp.skills.extension'
+39612 INFO: Analyzing hidden import 'fastmcp.types'
+39613 INFO: Analyzing hidden import 'fastmcp.utilities.asgi_transport'
+39626 INFO: Analyzing hidden import 'fastmcp.utilities.lifespan'
+39629 INFO: Analyzing hidden import 'fastmcp.utilities.skills'
+39636 INFO: Analyzing hidden import 'fastmcp.utilities.tests'
+39661 INFO: Analyzing hidden import 'starlette.config'
+39669 INFO: Analyzing hidden import 'starlette.endpoints'
+39684 INFO: Analyzing hidden import 'starlette.middleware.base'
+39708 INFO: Analyzing hidden import 'starlette.middleware.gzip'
+39727 INFO: Analyzing hidden import 'starlette.middleware.httpsredirect'
+39731 INFO: Analyzing hidden import 'starlette.middleware.opentelemetry'
+39743 INFO: Analyzing hidden import 'starlette.middleware.trustedhost'
+39752 INFO: Analyzing hidden import 'starlette.middleware.wsgi'
+39763 INFO: Analyzing hidden import 'starlette.schemas'
+39774 INFO: Analyzing hidden import 'starlette.staticfiles'
+39786 INFO: Analyzing hidden import 'starlette.templating'
+39793 INFO: Analyzing hidden import 'starlette.testclient'
+39828 INFO: Analyzing hidden import 'uvicorn.__main__'
+39829 INFO: Analyzing hidden import 'uvicorn.lifespan'
+39830 INFO: Analyzing hidden import 'uvicorn.lifespan.off'
+39832 INFO: Analyzing hidden import 'uvicorn.lifespan.on'
+39840 INFO: Analyzing hidden import 'uvicorn.loops'
+39841 INFO: Analyzing hidden import 'uvicorn.loops.asyncio'
+39842 INFO: Analyzing hidden import 'uvicorn.loops.auto'
+39846 INFO: Analyzing hidden import 'uvicorn.loops.zuvloop'
+39847 INFO: Analyzing hidden import 'uvicorn.protocols.http.auto'
+39850 INFO: Analyzing hidden import 'uvicorn.protocols.websockets.auto'
+39852 INFO: Analyzing hidden import 'uvicorn.workers'
+39858 INFO: Processing module hooks (post-graph stage)...
+40256 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/pre_safe_import_module'
+40256 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+43993 INFO: Performing binary vs. data reclassification (433 entries)
+44059 INFO: Looking for ctypes DLLs
+44067 WARNING: Library shell32 required via ctypes not found
+44067 WARNING: Library ole32 required via ctypes not found
+44107 WARNING: Library msvcrt required via ctypes not found
+44161 INFO: Analyzing run-time hooks ...
+44176 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+44179 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+44182 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/hooks/rthooks'
+44185 INFO: Including run-time hook 'pyi_rth_cryptography_openssl.py' from '/Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/_pyinstaller_hooks_contrib/rthooks'
+44235 INFO: Creating base_library.zip...
+44516 INFO: Looking for dynamic libraries
+44767 INFO: Warnings written to /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/build/mcp-server/warn-mcp-server.txt
+44995 INFO: Graph cross-reference written to /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/build/mcp-server/xref-mcp-server.html
+45152 INFO: checking PYZ
+45152 INFO: Building PYZ because PYZ-00.toc is non existent
+45152 INFO: Building PYZ (ZlibArchive) /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/build/mcp-server/PYZ-00.pyz
+53462 INFO: Building PYZ (ZlibArchive) /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/build/mcp-server/PYZ-00.pyz completed successfully.
+53539 INFO: EXE target arch: x86_64
+53539 INFO: Code signing identity: None
+53574 INFO: checking PKG
+53574 INFO: Building PKG because PKG-00.toc is non existent
+53574 INFO: Building PKG (CArchive) mcp-server.pkg
+53616 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/libpython3.12.dylib
+53994 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/ossl-modules/legacy.dylib
+54105 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/watchfiles/_rust_notify.abi3.so
+54188 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/websockets/speedups.cpython-312-darwin.so
+54259 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/yaml/_yaml.cpython-312-darwin.so
+54352 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/pydantic_core/_pydantic_core.cpython-312-darwin.so
+54478 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/rpds/rpds.cpython-312-darwin.so
+54567 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/_cffi_backend.cpython-312-darwin.so
+54659 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/cryptography/hazmat/bindings/_rust.abi3.so
+54879 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/caio/thread_aio.cpython-312-darwin.so
+55001 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/libcrypto.3.dylib
+55189 INFO: Executing: strip -S /Users/wangdefu/Library/Application Support/pyinstaller/bincache10py31264bit/x86_64/adhoc/no-entitlements/libssl.3.dylib
+62172 INFO: Building PKG (CArchive) mcp-server.pkg completed successfully.
+62187 INFO: Bootloader /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/.venv/lib/python3.12/site-packages/PyInstaller/bootloader/Darwin-64bit/run
+62188 INFO: checking EXE
+62188 INFO: Building EXE because EXE-00.toc is non existent
+62188 INFO: Building EXE from EXE-00.toc
+62188 INFO: Copying bootloader EXE to /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/dist/mcp-server
+62189 INFO: Converting EXE to target arch (x86_64)
+62233 INFO: Removing signature(s) from EXE
+62277 INFO: Modifying Mach-O image UUID(s) in EXE
+62331 INFO: Appending PKG archive to EXE
+62354 INFO: Fixing EXE headers for code signing
+62371 INFO: Rewriting the executable's macOS SDK version (26.2.0) to match the SDK version of the Python library (15.5.0) in order to avoid inconsistent behavior and potential UI issues in the frozen application.
+62372 INFO: Re-signing the EXE
+62595 INFO: Building EXE from EXE-00.toc completed successfully.
+62610 INFO: Build complete! The results are available in: /Users/wangdefu/Documents/projects/VibeCodingAI/baseline/mcp/mcp_server/dist
